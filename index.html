@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>microfe-pubsub</title>
+    <style>
+      body {
+        display: grid;
+        /* grid-template-rows: 150px 1fr; */
+        grid-template-columns: 1fr 1fr;
+        height: 100vh;
+        overflow: hidden;
+        gap: 0.5rem;
+
+        & > div {
+          border: 1px solid blue;
+          padding: 1rem;
+        }
+      }
+      iframe {
+        width: calc(100% - 4px);
+        height: calc(100% - 20px);
+      }
+    </style>
+    <script type="module" src="script.js"></script>
+  </head>
+  <body>
+    <iframe
+      src="./mfe.html?id=1"
+      frameborder="1"
+      title="Micro Frontend One"
+    ></iframe>
+    <iframe
+      src="./mfe.html?id=2"
+      frameborder="1"
+      title="Micro Frontend Two"
+    ></iframe>
+  </body>
+</html>
