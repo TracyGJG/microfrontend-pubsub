@@ -9,9 +9,8 @@ export default function pubSubHub() {
   function publish(topic, data) {
     if (!topics[topic]) {
       topics[topic] = [];
-    } else {
-      topics[topic].forEach(subscriber => subscriber(data));
     }
+    topics[topic].forEach(subscriber => subscriber(topic, data));
   }
 
   function subscribe(topic, callback) {

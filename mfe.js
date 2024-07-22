@@ -1,32 +1,33 @@
-import { sendToParent, receiveFromParent } from './iframe-comms.js';
+import { publish, subscribe } from './iframe-comms.js';
 
 const mfeUrl = new URL(document.baseURI);
-const mfeId = +mfeUrl.searchParams.get('id');
-document.querySelector('h2').textContent += mfeId;
+const publishTopic = mfeUrl.searchParams.get('primary');
+const subscribeTopic = mfeUrl.searchParams.get('secondary');
 
-const publishTopic = `mfe_${mfeId}`;
-const subscribeTopic = (mfeId % 2) + 1;
-
+document.querySelector('h2').textContent += publishTopic;
 document.querySelector(
   'h3'
-).textContent = `The message received from mfe_${subscribeTopic} appears below:`;
+).textContent = `The message received on ${subscribeTopic} appears below:`;
 document.querySelector(
   '#sendMessage'
-).textContent = `Send above message from ${publishTopic} to mfe_${subscribeTopic}`;
+).textContent = `Send above message on ${publishTopic}`;
 
 {
   const $message = document.querySelector('#message');
   const $messageText = document.querySelector('#messageText');
 
-  receiveFromParent(event => {
-    message.innerText =
-      typeof event.data === 'string' ? event.data : JSON.stringify(event.data);
+  subscribe(({ data }) => {
+    try {
+      const payload = JSON.parse(data);
+      if (payload.topic === subscribeTopic) {
+        $message.innerText = payload.data;
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
   });
 
   document.querySelector('#sendMessage').addEventListener('click', function () {
-    sendToParent({
-      id: mfeId,
-      data: $messageText.value,
-    });
+    publish(publishTopic, $messageText.value);
   });
 }
