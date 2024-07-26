@@ -17,3 +17,7 @@ This project contains the following file:
   - sendToParent: Sending data from an iframe to the paranet
   - receiveFromParent: Receiving data from the parent
 - mfe.js - The script supporting the micro-frontend (iFrame) component to wire up the UI elements with the iframe comms.
+
+## Screenshot
+
+![Screenshot of the sampler running showing messages sent between the microfrontends](Screenshot.png 'Microfrontend and PubSub')
