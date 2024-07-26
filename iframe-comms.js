@@ -17,16 +17,18 @@ export function configureParent() {
   });
 }
 
-export function subscribeChild(subscriber, topic) {
-  Hub.subscribe(topic, (topic, data) => {
-    try {
-      const payload = JSON.stringify({ topic, data });
-      document
-        .querySelector(`[title="${subscriber}"]`)
-        .contentWindow.postMessage(payload, '*');
-    } catch (err) {
-      console.error(err.message);
-    }
+export function subscribeChild(subscriber, ...topics) {
+  topics.forEach(topic => {
+    Hub.subscribe(topic, (topic, data) => {
+      try {
+        const payload = JSON.stringify({ topic, data });
+        document
+          .querySelector(`[title="${subscriber}"]`)
+          .contentWindow.postMessage(payload, '*');
+      } catch (err) {
+        console.error(err.message);
+      }
+    });
   });
 }
 

@@ -1,30 +1,34 @@
 import { publish, subscribe } from './iframe-comms.js';
 
 const mfeUrl = new URL(document.baseURI);
-const publishTopic = mfeUrl.searchParams.get('primary');
-const subscribeTopic = mfeUrl.searchParams.get('secondary');
+const publishTopic = mfeUrl.searchParams.get('publish');
+const subscribeTopics = mfeUrl.searchParams.get('subscriptions').split(',');
 
 document.querySelector('h2').textContent += publishTopic;
 document.querySelector(
   'h3'
-).textContent = `The message received on ${subscribeTopic} appears below:`;
+).textContent = `The messages received for topic(s): ${subscribeTopics.join(
+  ', '
+)} appear below:`;
 document.querySelector(
   '#sendMessage'
-).textContent = `Send above message on ${publishTopic}`;
+).textContent = `Publish above message on topic: ${publishTopic}`;
 
 {
-  const $message = document.querySelector('#message');
+  const $messages = document.querySelector('#messages');
   const $messageText = document.querySelector('#messageText');
 
-  subscribe(({ data }) => {
-    try {
-      const payload = JSON.parse(data);
-      if (payload.topic === subscribeTopic) {
-        $message.innerText = payload.data;
+  subscribeTopics.forEach(subscribeTopic => {
+    subscribe(({ data }) => {
+      try {
+        const payload = JSON.parse(data);
+        if (payload.topic === subscribeTopic) {
+          $messages.innerHTML = `<p>${payload.data}</p>${$messages.innerHTML}`;
+        }
+      } catch (err) {
+        console.error(err.message);
       }
-    } catch (err) {
-      console.error(err.message);
-    }
+    });
   });
 
   document.querySelector('#sendMessage').addEventListener('click', function () {

@@ -8,6 +8,7 @@
       body {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: 14vh 42vh 42vh;
         height: 100vh;
         overflow: hidden;
         gap: 0.5rem;
@@ -17,23 +18,51 @@
           padding: 1rem;
         }
       }
+      header {
+        grid-column: 1/-1;
+      }
       iframe {
         width: calc(100% - 4px);
         height: calc(100% - 20px);
+        border: 2px inset black;
+      }
+      ul {
+        columns: 2;
       }
     </style>
     <script type="module" src="script.js"></script>
   </head>
   <body>
+    <header>
+      <h1>
+        Micro-frontend example with Publish and Subscribe (pub-sub)
+        communictions
+      </h1>
+      <ul>
+        <li>Topic A is only subscribed to by TR microfrontend.</li>
+        <li>Topic B is only subscribed to by TL microfrontend.</li>
+        <li>Topic C is subscribed to by TR & BR microfrontend.</li>
+        <li>
+          Important: TR microfrontend publishes and subscribes to multiple
+          topics.
+        </li>
+      </ul>
+    </header>
     <iframe
-      src="./mfe.html?primary=mfeA&secondary=mfeB"
-      frameborder="1"
+      src="./mfe.html?publish=TopicA&subscriptions=TopicB"
       title="Micro Frontend One"
     ></iframe>
     <iframe
-      src="./mfe.html?primary=mfeB&secondary=mfeA"
-      frameborder="1"
+      src="./mfe.html?publish=TopicB&subscriptions=TopicA,TopicC"
       title="Micro Frontend Two"
+    ></iframe>
+    <iframe
+      src="./mfe.html?publish=TopicC&subscriptions=TopicD"
+      title="Micro Frontend Three"
+    ></iframe>
+    <iframe
+      src="./mfe.html?publish=TopicD&subscriptions=TopicC"
+      title="Micro Frontend Four"
     ></iframe>
   </body>
 </html>

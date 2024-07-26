@@ -4,19 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Micro-frontend</title>
+    <style>
+      body {
+        background-color: aliceblue;
+      }
+      #messages {
+        border: 1px inset, grey;
+        height: 56vh;
+        overflow: auto;
+        background-color: #fff;
+        & > p {
+          padding: 0 0.5em;
+          margin: 0.5em 0;
+          background-color: aliceblue;
+        }
+      }
+      #messageText {
+        width: 240px;
+      }
+    </style>
   </head>
   <body>
-    <h2>iFrame:</h2>
-    <h3></h3>
+    <h2>Publish:&nbsp;</h2>
 
-    <div id="message">Please send some message from the input above.</div>
-    <br />
-
-    <label for="messageText">Input:</label>
+    <label for="messageText">Message: </label>
     <input type="text" id="messageText" />
-    <br />
-    <br />
     <button id="sendMessage" type="button">Send Message</button>
+    <br />
+
+    <h3>Please send some message from the input</h3>
+    <div id="messages"></div>
 
     <script type="module" src="./mfe.js"></script>
   </body>
