@@ -1,29 +1,40 @@
 import { publish, subscribe } from './iframe-comms.js';
 
 const mfeUrl = new URL(document.baseURI);
-const publishTopic = mfeUrl.searchParams.get('publish');
+const publishTopics = mfeUrl.searchParams.get('publishes').split(',');
 const subscribeTopics = mfeUrl.searchParams.get('subscriptions').split(',');
 
-document.querySelector('h2').textContent += publishTopic;
+let publishTopic = publishTopics[0];
+
+document.querySelector('h2').textContent += publishTopics.join(', ');
 document.querySelector(
   'h3'
 ).textContent = `The messages received for topic(s): ${subscribeTopics.join(
   ', '
 )} appear below:`;
-document.querySelector(
-  '#sendMessage'
-).textContent = `Publish above message on topic: ${publishTopic}`;
 
 {
-  const $messages = document.querySelector('#messages');
-  const $messageText = document.querySelector('#messageText');
+  document.querySelector('#publish').innerHTML +=
+    publishTopics.length - 1
+      ? `<select id="selPublishTopics">${publishTopics.map(
+          topic => `<option>${topic}</option>`
+        )}</select>`
+      : `<span>${publishTopic}</span>`;
 
+  const $selPublishTopics = document.querySelector('#selPublishTopics');
+  if ($selPublishTopics) {
+    $selPublishTopics.addEventListener('change', evt => {
+      publishTopic = evt.target.value;
+    });
+  }
+
+  const $messages = document.querySelector('#messages');
   subscribeTopics.forEach(subscribeTopic => {
     subscribe(({ data }) => {
       try {
         const payload = JSON.parse(data);
         if (payload.topic === subscribeTopic) {
-          $messages.innerHTML = `<p>${payload.data}</p>${$messages.innerHTML}`;
+          $messages.innerHTML = `<p>${payload.topic}>&nbsp;${payload.data}</p>${$messages.innerHTML}`;
         }
       } catch (err) {
         console.error(err.message);
@@ -32,6 +43,6 @@ document.querySelector(
   });
 
   document.querySelector('#sendMessage').addEventListener('click', function () {
-    publish(publishTopic, $messageText.value);
+    publish(publishTopic, document.querySelector('#messageText').value);
   });
 }

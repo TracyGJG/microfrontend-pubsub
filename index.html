@@ -7,8 +7,8 @@
     <style>
       body {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 14vh 42vh 42vh;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 6vh 90vh;
         height: 100vh;
         overflow: hidden;
         gap: 0.5rem;
@@ -20,17 +20,26 @@
       }
       header {
         grid-column: 1/-1;
+        h1 {
+          margin: 0.5rem 0;
+          text-align: center;
+        }
       }
       iframe {
         width: calc(100% - 4px);
-        height: calc(100% - 20px);
+        height: calc(100% - 4px);
         border: 2px inset black;
       }
-      ul {
-        columns: 2;
-      }
     </style>
-    <script type="module" src="script.js"></script>
+    <script type="module">
+      import configureMicrofrontend from './iframe-comms.js';
+
+      configureMicrofrontend(
+        'Micro Frontend One',
+        'Micro Frontend Two',
+        'Micro Frontend Three'
+      );
+    </script>
   </head>
   <body>
     <header>
@@ -38,31 +47,18 @@
         Micro-frontend example with Publish and Subscribe (pub-sub)
         communictions
       </h1>
-      <ul>
-        <li>Topic A is only subscribed to by TR microfrontend.</li>
-        <li>Topic B is only subscribed to by TL microfrontend.</li>
-        <li>Topic C is subscribed to by TR & BR microfrontend.</li>
-        <li>
-          Important: TR microfrontend publishes and subscribes to multiple
-          topics.
-        </li>
-      </ul>
     </header>
     <iframe
-      src="./mfe.html?publish=TopicA&subscriptions=TopicB"
+      src="./mfe.html?publishes=TopicA&subscriptions=TopicB,TopicC"
       title="Micro Frontend One"
     ></iframe>
     <iframe
-      src="./mfe.html?publish=TopicB&subscriptions=TopicA,TopicC"
+      src="./mfe.html?publishes=TopicB&subscriptions=TopicA,TopicC"
       title="Micro Frontend Two"
     ></iframe>
     <iframe
-      src="./mfe.html?publish=TopicC&subscriptions=TopicD"
+      src="./mfe.html?publishes=TopicA,TopicC&subscriptions=TopicB"
       title="Micro Frontend Three"
-    ></iframe>
-    <iframe
-      src="./mfe.html?publish=TopicD&subscriptions=TopicC"
-      title="Micro Frontend Four"
     ></iframe>
   </body>
 </html>

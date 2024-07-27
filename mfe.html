@@ -8,9 +8,16 @@
       body {
         background-color: aliceblue;
       }
+      h2,
+      h3 {
+        margin: 0.5rem 0;
+      }
+      select {
+        padding: 1px;
+      }
       #messages {
         border: 1px inset, grey;
-        height: 56vh;
+        height: 85vh;
         overflow: auto;
         background-color: #fff;
         & > p {
@@ -26,12 +33,13 @@
   </head>
   <body>
     <h2>Publish:&nbsp;</h2>
+    <article id="publish">
+      <label for="messageText">Message: </label>
+      <input type="text" id="messageText" />
+      <button id="sendMessage" type="button">Publish message on topic</button>
+    </article>
 
-    <label for="messageText">Message: </label>
-    <input type="text" id="messageText" />
-    <button id="sendMessage" type="button">Send Message</button>
-    <br />
-
+    <hr />
     <h3>Please send some message from the input</h3>
     <div id="messages"></div>
 
