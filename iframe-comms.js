@@ -20,9 +20,7 @@ export default function configureMicrofrontend(...microfrontend) {
 
 function subscribeMicrofrontend(subscriber) {
   const microFrontend = document.querySelector(`[title="${subscriber}"]`);
-
   const parameters = microFrontend.getAttribute('src').split(/[?&]/);
-  console.log(parameters.length);
   const subscriptions = parameters.find(parameter =>
     /^subscriptions/.test(parameter)
   );
