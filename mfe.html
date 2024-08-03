@@ -8,7 +8,9 @@
       body {
         background-color: aliceblue;
       }
-      h2,
+      h2 {
+        margin: 0.75rem 0;
+      }
       h3 {
         margin: 0.5rem 0;
       }
@@ -17,7 +19,7 @@
       }
       #messages {
         border: 1px inset, grey;
-        height: 85vh;
+        height: 80vh;
         overflow: auto;
         background-color: #fff;
         & > p {
@@ -32,7 +34,8 @@
     </style>
   </head>
   <body>
-    <h2>Publish:&nbsp;</h2>
+    <h2 id="title"></h2>
+    <h3 id="publishing">Publish:&nbsp;</h3>
     <article id="publish">
       <label for="messageText">Message: </label>
       <input type="text" id="messageText" />
@@ -40,7 +43,7 @@
     </article>
 
     <hr />
-    <h3>Please send some message from the input</h3>
+    <h3 id="subscriptions">Please send some message from the input</h3>
     <div id="messages"></div>
 
     <script type="module" src="./mfe.js"></script>

@@ -1,14 +1,16 @@
 import { publish, subscribe } from './iframe-comms.js';
 
 const mfeUrl = new URL(document.baseURI);
+const microFrontendTitle = mfeUrl.searchParams.get('title');
 const publishTopics = mfeUrl.searchParams.get('publishes').split(',');
 const subscribeTopics = mfeUrl.searchParams.get('subscriptions').split(',');
 
 let publishTopic = publishTopics[0];
 
-document.querySelector('h2').textContent += publishTopics.join(', ');
+document.querySelector('#title').textContent = microFrontendTitle;
+document.querySelector('#publishing').textContent += publishTopics.join(', ');
 document.querySelector(
-  'h3'
+  '#subscriptions'
 ).textContent = `The messages received for topic(s): ${subscribeTopics.join(
   ', '
 )} appear below:`;
