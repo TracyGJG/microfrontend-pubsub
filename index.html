@@ -3,62 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>microFE-pubsub</title>
-    <style>
-      body {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 6vh 90vh;
-        height: 100vh;
-        overflow: hidden;
-        gap: 0.5rem;
-
-        & > div {
-          border: 1px solid blue;
-          padding: 1rem;
-        }
-      }
-      header {
-        grid-column: 1/-1;
-        h1 {
-          margin: 0.5rem 0;
-          text-align: center;
-        }
-      }
-      iframe {
-        width: calc(100% - 4px);
-        height: calc(100% - 4px);
-        border: 2px inset black;
-      }
-    </style>
-    <script type="module">
-      import configureMicrofrontend from './iframe-comms.js';
-
-      configureMicrofrontend(
-        'Micro Frontend One',
-        'Micro Frontend Two',
-        'Micro Frontend Three'
-      );
-    </script>
+    <title>Microfrontend pubsub</title>
   </head>
   <body>
-    <header>
-      <h1>
-        Micro-frontend example with Publish and Subscribe (pub-sub)
-        communictions
-      </h1>
-    </header>
-    <iframe
-      src="./mfe.html?title=Micro%20Frontend%20One&publishes=TopicA&subscriptions=TopicB,TopicC"
-      title="Micro Frontend One"
-    ></iframe>
-    <iframe
-      src="./mfe.html?title=Micro%20Frontend%20Two&publishes=TopicB&subscriptions=TopicA,TopicC"
-      title="Micro Frontend Two"
-    ></iframe>
-    <iframe
-      src="./mfe.html?title=Micro%20Frontend%20Three&publishes=TopicA,TopicC&subscriptions=TopicB"
-      title="Micro Frontend Three"
-    ></iframe>
+    <h1>Microfrontend Pub-Sub Samples</h1>
+    <ul>
+      <li><a href="./post-message/">Post Message</a></li>
+      <li><a href="./custom-event/">Custom Event</a></li>
+      <li><a href="./web-socket/">Web Socket</a></li>
+    </ul>
   </body>
 </html>

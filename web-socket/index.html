@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>microFE-pubsub</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        Micro-frontend example with Publish and Subscribe (pub-sub)
+        communictions
+      </h1>
+      <h2>Host-Remote communication mechanism: Web Socket</h2>
+    </header>
+    <iframe src="./mfe-red.html" title="Micro Frontend One"></iframe>
+    <iframe src="./mfe-grn.html" title="Micro Frontend Two"></iframe>
+    <iframe src="./mfe-blu.html" title="Micro Frontend Three"></iframe>
+
+    <script type="module">
+      import pubSubHub from '../pub-sub-hub.js';
+      import { receiveFromRemote, sendToRemote } from './comms.js';
+
+      const Hub = pubSubHub();
+
+      receiveFromRemote((topic, data) => Hub.publish(topic, data));
+
+      const subscribers = [
+        {
+          remote: document.querySelector('[title="Micro Frontend One"]'),
+          topics: ['TopicB', 'TopicC'],
+        },
+        {
+          remote: document.querySelector('[title="Micro Frontend Two"]'),
+          topics: ['TopicA', 'TopicC'],
+        },
+        {
+          remote: document.querySelector('[title="Micro Frontend Three"]'),
+          topics: ['TopicB'],
+        },
+      ];
+      subscribers.forEach(subscriber => {
+        subscriber.topics.forEach(_topic => {
+          Hub.subscribe(_topic, (topic, data) => {
+            sendToRemote(subscriber.remote, {
+              topic,
+              data,
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
