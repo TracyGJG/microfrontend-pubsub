@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="divRecieved"></div>
+    <button id="btnSend">Send</button>
+    <hr />
+    <iframe id="ifrRemote" src="./remote-pm.html"></iframe>
+
+    <script type="module">
+      import { sendToRemote, receiveFromRemote } from './comms-pm.js';
+
+      document.getElementById('btnSend').addEventListener('click', evt => {
+        sendToRemote(
+          { topic: 'From', data: 'host' },
+          document.getElementById('ifrRemote').contentWindow
+        );
+      });
+
+      receiveFromRemote(({ topic, data }) => {
+        document.getElementById(
+          'divRecieved'
+        ).textContent = `From remote: ${topic} ${data}`;
+      });
+    </script>
+  </body>
+</html>

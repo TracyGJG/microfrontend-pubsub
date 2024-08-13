@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="divRecieved"></div>
+    <button id="btnSend">Send</button>
+
+    <script type="module">
+      import { sendToHost, receiveFromHost } from './comms-ce.js';
+
+      document.getElementById('btnSend').addEventListener('click', evt => {
+        sendToHost({ topic: 'From', data: 'remote' });
+      });
+
+      receiveFromHost(document, ({ topic, data }) => {
+        document.getElementById(
+          'divRecieved'
+        ).textContent = `From host: ${topic} ${data}`;
+      });
+    </script>
+  </body>
+</html>

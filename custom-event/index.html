@@ -24,7 +24,9 @@
 
       const Hub = pubSubHub();
 
-      receiveFromRemote((topic, data) => Hub.publish(topic, data));
+      receiveFromRemote(document, ({ topic, data }) =>
+        Hub.publish(topic, data)
+      );
 
       const subscribers = [
         {
@@ -43,10 +45,13 @@
       subscribers.forEach(subscriber => {
         subscriber.topics.forEach(_topic => {
           Hub.subscribe(_topic, (topic, data) => {
-            sendToRemote(subscriber.remote, {
-              topic,
-              data,
-            });
+            sendToRemote(
+              {
+                topic,
+                data,
+              },
+              subscriber.remote.contentWindow.document
+            );
           });
         });
       });

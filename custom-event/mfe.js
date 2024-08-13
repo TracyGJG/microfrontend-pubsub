@@ -21,7 +21,7 @@ export default function configureMicrofrontend(
       )}</select>`
     );
   }
-  receiver((topic, data) => {
+  receiver(document, ({ topic, data }) => {
     messages.insertAdjacentHTML('afterBegin', `<p>${topic}, ${data}</p>`);
   });
 
