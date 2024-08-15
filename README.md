@@ -56,7 +56,7 @@ The `remote` (iframe) microfrontend issues the `sendToHost` and `recieveFromHost
 
 ## Exercise
 
-![Illustration of a multi-microfrontend application](microfrontends.png 'Application Exericse')
+![Illustration of a multi-microfrontend application](exercise.png 'Application Exericse')
 
 1. Micro Frontend One (MF1) publishes a message on Topic A, that is only subscribed to by MF2.
 1. MF2 publishes a message on Topic B, to which both MF1 & MF3 subscribe.
