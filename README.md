@@ -42,13 +42,15 @@ The folder structure and purpose of the files in both folders are the same but d
 
 ![Screenshot of the sampler running showing messages sent between the microfrontends](Screenshot.png 'Microfrontend and PubSub')
 
-The iFrame on the left publishes messages of topic TopicA and subscribes to TopicB.
-The middle iFrame publishes topic TopicB and subscribes to topics TopicA and TopicC.
-The right iFrame publishes topics TopicA and TopicC, and subscrides to TopicB.
+* The micro-frontend (MFE) on the left publishes messages of topic TopicA and subscribes to TopicB and TopiC.
+* The middle MFE publishes topic TopicB and subscribes to topics TopicA and TopicC.
+* The right MFE publishes topics TopicA and TopicC, and subscrides to TopicB.
+
+However, none of the MFEs interface with the others, only with the host application.
 
 ## Samplers
 
-In the `samplers` folder there are two examples but they follow a common mechanism, but they exclde the pub-sub mechanism.
+In the `samplers` folder there are two examples that follow a common mechanism, but they exclude the pub-sub mechanism.
 
 ![Diagram showing the communication mechanism exercised by both samplers](samplers.png 'Sampler mechanics')
 
@@ -58,7 +60,7 @@ The `remote` (iframe) microfrontend issues the `sendToHost` and `recieveFromHost
 
 ![Illustration of a multi-microfrontend application](exercise.png 'Application Exericse')
 
-1. Micro Frontend One (MF1) publishes a message on Topic A, that is only subscribed to by MF2.
-1. MF2 publishes a message on Topic B, to which both MF1 & MF3 subscribe.
-1. MF3 publishes a message on Topic A, that is again received by MF2.
-1. MF3 publishes a message on Topic C, that is received by both MF1 & MF2.
+1. Micro-frontend One (MF1) publishes a message on Topic A that is only subscribed to by MF2.
+1. MF2 publishes a message on Topic B, to which both MF1 and MF3 subscribe.
+1. MF3 publishes a message on Topic A that is again received by MF2, only.
+1. MF3 can also publish a message on Topic C that is received by both MF1 and MF2.
