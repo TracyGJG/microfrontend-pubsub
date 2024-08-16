@@ -67,4 +67,4 @@ The `remote` (iframe) microfrontend issues the `sendToHost` and `recieveFromHost
 
 ## NB
 
-It appears that custom events fail CORS restrictions crossing the iFrame boundary. This means, out of the two communication approaches exercised in this project, only the Post Message mechanism works when the URL of the iFrame content is from a different origin to the containing page.  
+It appears that custom events fail CORS restrictions crossing the iFrame boundary. This means, out of the two communication approaches exercised in this project, only the Post Message mechanism works when the content of the iFrame is from a different origin to the containing page.  
