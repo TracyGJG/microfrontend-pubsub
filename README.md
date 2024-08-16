@@ -64,3 +64,7 @@ The `remote` (iframe) microfrontend issues the `sendToHost` and `recieveFromHost
 1. MF2 publishes a message on Topic B, to which both MF1 and MF3 subscribe.
 1. MF3 publishes a message on Topic A that is again received by MF2, only.
 1. MF3 can also publish a message on Topic C that is received by both MF1 and MF2.
+
+## NB
+
+It appears that custom events fail CORS restrictions crossing the iFrame boundary. This means, out of the two communication approaches exercised in this project, only the Post Message mechanism works when the URL of the iFrame content is from a different origin to the containing page.  
